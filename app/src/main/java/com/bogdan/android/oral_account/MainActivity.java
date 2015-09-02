@@ -1,65 +1,82 @@
 package com.bogdan.android.oral_account;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Stack;
 
 
 public class MainActivity extends Activity {
     private final String LOG = "____MyLog___";
-    int count = 0;
-    Handler handler = new Handler();
-    HashSet<Integer> btnAnswerSet = new HashSet<>();
+    Stack<String> answer;
+    Handler handler;
     int min = 1;
     int max = 9;
+    String answerInput;
     int rightAnswer;
     int firstInt;
     int secondInt;
     int widthPixelsD;
+    boolean reDraw = false;
+
 
     Button btnPlus, btnMinus, btnMultiple, btnDivide, btnLevel_1, btnLevel_2, btnLevel_3, btnLevel_4,
-            btnVariant_1, btnVariant_2, btnVariant_3, btnVariant_4;
-    TextView tvFirstInt, tvSecondInt, tvOperation;
+            button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_0, button_minus, button_back;
+    TextView tvFirstInt, tvSecondInt, tvOperation, tvAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if(widthPixelsD)
         setContentView(R.layout.activity_main);
+
+        answer = new Stack<>();
+        answerInput = new String();
+        handler = new Handler();
+
+
 
         btnPlus = (Button) findViewById(R.id.btnPlus);
         btnPlus.setEnabled(false);
+        btnPlus.setTextColor(Color.WHITE);
         btnMinus = (Button) findViewById(R.id.btnMinus);
         btnMultiple = (Button) findViewById(R.id.btnMultiple);
         btnDivide = (Button) findViewById(R.id.btnDivide);
 
         btnLevel_1 = (Button) findViewById(R.id.btnLevel_1);
         btnLevel_1.setEnabled(false);
+        btnLevel_1.setTextColor(Color.WHITE);
         btnLevel_2 = (Button) findViewById(R.id.btnLevel_2);
         btnLevel_3 = (Button) findViewById(R.id.btnLevel_3);
         btnLevel_4 = (Button) findViewById(R.id.btnLevel_4);
 
-        btnVariant_1 = (Button) findViewById(R.id.btnVariant_1);
-        btnVariant_2 = (Button) findViewById(R.id.btnVariant_2);
-        btnVariant_3 = (Button) findViewById(R.id.btnVariant_3);
-        btnVariant_4 = (Button) findViewById(R.id.btnVariant_4);
+        button_0 = (Button) findViewById(R.id.button_0);
+        button_1 = (Button) findViewById(R.id.button_1);
+        button_2 = (Button) findViewById(R.id.button_2);
+        button_3 = (Button) findViewById(R.id.button_3);
+        button_4 = (Button) findViewById(R.id.button_4);
+        button_5 = (Button) findViewById(R.id.button_5);
+        button_6 = (Button) findViewById(R.id.button_6);
+        button_7 = (Button) findViewById(R.id.button_7);
+        button_8 = (Button) findViewById(R.id.button_8);
+        button_9 = (Button) findViewById(R.id.button_9);
+        button_minus = (Button) findViewById(R.id.button_minus);
+        button_back  = (Button) findViewById(R.id.button_back);
+
+        tvAnswer = (TextView) findViewById(R.id.answer);
+        tvFirstInt = (TextView) findViewById(R.id.tvFirstInt);
+        tvSecondInt = (TextView) findViewById(R.id.tvSecondInt);
+        tvOperation = (TextView) findViewById(R.id.tvOperation);
+        tvOperation.setText(R.string.plus);
 
         btnPlus.setOnClickListener(onCLOperation);
         btnMinus.setOnClickListener(onCLOperation);
@@ -71,41 +88,22 @@ public class MainActivity extends Activity {
         btnLevel_3.setOnClickListener(onCLLevel);
         btnLevel_4.setOnClickListener(onCLLevel);
 
-        btnVariant_1.setOnClickListener(onCLVariant);
-        btnVariant_2.setOnClickListener(onCLVariant);
-        btnVariant_3.setOnClickListener(onCLVariant);
-        btnVariant_4.setOnClickListener(onCLVariant);
+        button_0.setOnClickListener(onCNumbers);
+        button_1.setOnClickListener(onCNumbers);
+        button_2.setOnClickListener(onCNumbers);
+        button_3.setOnClickListener(onCNumbers);
+        button_4.setOnClickListener(onCNumbers);
+        button_5.setOnClickListener(onCNumbers);
+        button_6.setOnClickListener(onCNumbers);
+        button_7.setOnClickListener(onCNumbers);
+        button_8.setOnClickListener(onCNumbers);
+        button_9.setOnClickListener(onCNumbers);
+        button_minus.setOnClickListener(onCNumbers);
+        button_back.setOnClickListener(onCNumbers);
 
-        tvFirstInt = (TextView) findViewById(R.id.tvFirstInt);
-        tvSecondInt = (TextView) findViewById(R.id.tvSecondInt);
-        tvOperation = (TextView) findViewById(R.id.tvOperation);
-        tvOperation.setText(R.string.plus);
 
         defBtnAnswer();
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.send_like) {
-
-            Toast.makeText(getBaseContext(), "Идем на гуглпей", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        if (id == R.id.about) {
-            Intent intent = new Intent(MainActivity.this, About.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     OnClickListener onCLOperation = new OnClickListener() {
@@ -113,6 +111,7 @@ public class MainActivity extends Activity {
         public void onClick(View v) {
             changeOperation(v);
             defBtnAnswer();
+            btnTextColor();
         }
     };
     OnClickListener onCLLevel = new OnClickListener() {
@@ -120,34 +119,115 @@ public class MainActivity extends Activity {
         public void onClick(View v) {
             changeLevel(v);
             defBtnAnswer();
+            btnTextColor();
         }
     };
-    OnClickListener onCLVariant = new OnClickListener() {
+
+    OnClickListener onCNumbers = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (!reDraw) {
+                Log.d(LOG, "ON");
+                switch (v.getId()) {
+                    case R.id.button_0:
+                        answer.push("0");
+                        break;
+                    case R.id.button_1:
+                        answer.push("1");
+                        break;
+                    case R.id.button_2:
+                        answer.push("2");
+                        break;
+                    case R.id.button_3:
+                        answer.push("3");
+                        break;
+                    case R.id.button_4:
+                        answer.push("4");
+                        break;
+                    case R.id.button_5:
+                        answer.push("5");
+                        break;
+                    case R.id.button_6:
+                        answer.push("6");
+                        break;
+                    case R.id.button_7:
+                        answer.push("7");
+                        break;
+                    case R.id.button_8:
+                        answer.push("8");
+                        break;
+                    case R.id.button_9:
+                        answer.push("9");
+                        break;
+                    case R.id.button_minus:
+                        if (!answerInput.contains("-") && answerInput.length() == 0)
+                            answer.push("-");
+                        break;
+                    case R.id.button_back:
+                        if (!answer.isEmpty())
+                            answer.pop();
+                        break;
+                }
 
-            if (v.getTag().equals(String.valueOf(rightAnswer))) {
-                tvFirstInt.setTextColor(Color.GREEN);
-                tvSecondInt.setTextColor(Color.GREEN);
-                tvOperation.setTextColor(Color.GREEN);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        defBtnAnswer();
+                if (!answer.isEmpty()) {
+                    answerInput = new ArrayList<>(answer).toString().substring(1, (3 * answer.size() - 1)).replaceAll(", ", "");
+                    tvAnswer.setText(answerInput);
+                } else {
+                    tvAnswer.setText("");
+                    answerInput = "";
+                }
+                if (answerInput.contains("-")) {
+                    if (answerInput.length() - 1 == String.valueOf(Math.abs(rightAnswer)).length()) {
+                        if (answerInput.equals(String.valueOf(rightAnswer))) {
+                            Log.d(LOG, "true");
+                            reDraw = true;
+                            tvAnswer.setTextColor(Color.parseColor("#2196F3"));
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    defBtnAnswer();
+                                }
+                            }, 1000);
+
+
+                        } else {
+                            Log.d(LOG, "false1");
+                            reDraw = true;
+                            tvAnswer.setTextColor(Color.parseColor("#F44336"));
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    defBtnAnswer();
+                                }
+                            }, 1000);
+                        }
                     }
-                }, 100);
-            } else {
-                tvFirstInt.setTextColor(Color.RED);
-                tvSecondInt.setTextColor(Color.RED);
-                tvOperation.setTextColor(Color.RED);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        defBtnAnswer();
+                } else {
+                    if (answerInput.length() == String.valueOf(Math.abs(rightAnswer)).length()) {
+                        if (answerInput.equals(String.valueOf(rightAnswer))) {
+                            Log.d(LOG, "true");
+                            reDraw = true;
+                            tvAnswer.setTextColor(Color.parseColor("#2196F3"));
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    defBtnAnswer();
+                                }
+                            }, 1000);
+                        } else {
+                            Log.d(LOG, "false2");
+                            reDraw = true;
+                            tvAnswer.setTextColor(Color.parseColor("#F44336"));
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    defBtnAnswer();
+                                }
+                            }, 1000);
+                        }
                     }
-                }, 100);
+                }
             }
-            Log.d(LOG, "" + count);
         }
     };
 
@@ -206,30 +286,31 @@ public class MainActivity extends Activity {
                 tvOperation.setText(R.string.divide);
                 break;
         }
-    }
 
+    }
 
     int random(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
     void defBtnAnswer() {
+        reDraw = false;
+        answer = new Stack<>();
+        answerInput = new String();
+        tvAnswer.setText("");
+        tvAnswer.setTextColor(Color.parseColor("#37474F"));
         firstInt = random(min, max);
         secondInt = random(min, max);
-        btnAnswerSet = new HashSet<>();
+
+
         /*Plus*/
         if (!btnPlus.isEnabled()) {
             rightAnswer = firstInt + secondInt;
-            btnAnswerSet.add(rightAnswer);
-            while (btnAnswerSet.size() != 4)
-                btnAnswerSet.add(random(min, max));
+
         }
         /*Minus*/
         if (!btnMinus.isEnabled()) {
             rightAnswer = firstInt - secondInt;
-            btnAnswerSet.add(rightAnswer);
-            while (btnAnswerSet.size() != 4)
-                btnAnswerSet.add(random(min, max));
         }
 
         /*Multiple*/
@@ -264,9 +345,6 @@ public class MainActivity extends Activity {
                     secondInt = temp;
                 }
             }
-            btnAnswerSet.add(rightAnswer);
-            while (btnAnswerSet.size() != 4)
-                btnAnswerSet.add(random(min, max) * firstInt);
         }
 
         /*Divide*/
@@ -284,33 +362,8 @@ public class MainActivity extends Activity {
                     secondInt = random(min, max);
                     rightAnswer = firstInt / secondInt;
                 } while (firstInt % secondInt != 0 || firstInt == secondInt || secondInt == 1);
-            btnAnswerSet.add(rightAnswer);
-
-            while (btnAnswerSet.size() != 4) {
-                int result;
-                int tempfirstInt;
-                int tempsecondInt;
-                do {
-                    tempfirstInt = random(min, max);
-                    tempsecondInt = random(min, max);
-                    result = tempfirstInt / tempsecondInt;
-                }
-                while (tempfirstInt % tempsecondInt != 0 || result < 2 || tempfirstInt < tempsecondInt);
-                btnAnswerSet.add(result);
-
-            }
         }
 
-        ArrayList<Integer> btnAnswer = new ArrayList<>(btnAnswerSet);
-        Collections.shuffle(btnAnswer);
-        btnVariant_1.setText(String.valueOf(btnAnswer.get(0)));
-        btnVariant_1.setTag(String.valueOf(btnAnswer.get(0)));
-        btnVariant_2.setText(String.valueOf(btnAnswer.get(1)));
-        btnVariant_2.setTag(String.valueOf(btnAnswer.get(1)));
-        btnVariant_3.setText(String.valueOf(btnAnswer.get(2)));
-        btnVariant_3.setTag(String.valueOf(btnAnswer.get(2)));
-        btnVariant_4.setText(String.valueOf(btnAnswer.get(3)));
-        btnVariant_4.setTag(String.valueOf(btnAnswer.get(3)));
         tvFirstInt.setText(String.valueOf(firstInt));
         tvSecondInt.setText(String.valueOf(secondInt));
         tvFirstInt.setTextColor(Color.BLACK);
@@ -319,10 +372,52 @@ public class MainActivity extends Activity {
     }
 
     void getDisResolution() {
-    Display display = this.getWindowManager().getDefaultDisplay();
-    DisplayMetrics metricsB = new DisplayMetrics();
-    display.getMetrics(metricsB);
-    widthPixelsD = metricsB.widthPixels;
-}
+        Display display = this.getWindowManager().getDefaultDisplay();
+        DisplayMetrics metricsB = new DisplayMetrics();
+        display.getMetrics(metricsB);
+        widthPixelsD = metricsB.widthPixels;
+    }
+
+    void btnTextColor() {
+        if (!btnDivide.isEnabled()) {
+            btnDivide.setTextColor(Color.WHITE);
+        } else
+            btnDivide.setTextColor(Color.BLACK);
+
+        if (!btnMultiple.isEnabled()) {
+            btnMultiple.setTextColor(Color.WHITE);
+        } else
+            btnMultiple.setTextColor(Color.BLACK);
+
+        if (!btnMinus.isEnabled()) {
+            btnMinus.setTextColor(Color.WHITE);
+        } else
+            btnMinus.setTextColor(Color.BLACK);
+
+        if (!btnPlus.isEnabled()) {
+            btnPlus.setTextColor(Color.WHITE);
+        } else
+            btnPlus.setTextColor(Color.BLACK);
+
+        if (!btnLevel_1.isEnabled()) {
+            btnLevel_1.setTextColor(Color.WHITE);
+        } else
+            btnLevel_1.setTextColor(Color.BLACK);
+
+        if (!btnLevel_2.isEnabled()) {
+            btnLevel_2.setTextColor(Color.WHITE);
+        } else
+            btnLevel_2.setTextColor(Color.BLACK);
+
+        if (!btnLevel_3.isEnabled()) {
+            btnLevel_3.setTextColor(Color.WHITE);
+        } else
+            btnLevel_3.setTextColor(Color.BLACK);
+
+        if (!btnLevel_4.isEnabled()) {
+            btnLevel_4.setTextColor(Color.WHITE);
+        } else
+            btnLevel_4.setTextColor(Color.BLACK);
+    }
 
 }
