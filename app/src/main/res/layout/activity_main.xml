@@ -14,20 +14,57 @@
         android:background="#263238"
         >
 
-        Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-            android:id="@+id/button" />
+            <ImageButton
+                android:layout_marginLeft="8dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:id="@+id/imageButton"
+                android:background="@drawable/rnd_br_prev"
+                android:layout_gravity="center_vertical" />
 
-        <ImageButton
-            android:layout_marginLeft="8dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/imageButton"
-            android:background="@drawable/rnd_br_prev"
-            android:layout_gravity="center_vertical" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="42dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="previous"
+                        android:textSize="24dp"
+                        android:id="@+id/previous_tv" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

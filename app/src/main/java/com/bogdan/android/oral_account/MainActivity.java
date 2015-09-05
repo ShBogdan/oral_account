@@ -28,11 +28,12 @@ public class MainActivity extends Activity {
     int secondInt;
     int widthPixelsD;
     boolean reDraw = false;
+    boolean isRight = true;
 
 
     Button btnPlus, btnMinus, btnMultiple, btnDivide, btnLevel_1, btnLevel_2, btnLevel_3, btnLevel_4,
             button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_0, button_minus, button_back;
-    TextView tvFirstInt, tvSecondInt, tvOperation, tvAnswer;
+    TextView tvFirstInt, tvSecondInt, tvOperation, tvAnswer, tvPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,9 @@ public class MainActivity extends Activity {
         handler = new Handler();
 
 
-
+        tvPrevious = (TextView) findViewById(R.id.previous_tv);
+        tvPrevious.setText("");
+        tvPrevious.setTextColor(Color.parseColor("#F44336"));
         btnPlus = (Button) findViewById(R.id.btnPlus);
         btnPlus.setEnabled(false);
         btnPlus.setTextColor(Color.WHITE);
@@ -187,11 +190,12 @@ public class MainActivity extends Activity {
                                 public void run() {
                                     defBtnAnswer();
                                 }
-                            }, 1000);
+                            }, 200);
 
 
                         } else {
                             Log.d(LOG, "false1");
+                            isRight = false;
                             reDraw = true;
                             tvAnswer.setTextColor(Color.parseColor("#F44336"));
                             handler.postDelayed(new Runnable() {
@@ -199,7 +203,7 @@ public class MainActivity extends Activity {
                                 public void run() {
                                     defBtnAnswer();
                                 }
-                            }, 1000);
+                            }, 200);
                         }
                     }
                 } else {
@@ -213,9 +217,10 @@ public class MainActivity extends Activity {
                                 public void run() {
                                     defBtnAnswer();
                                 }
-                            }, 1000);
+                            }, 200);
                         } else {
                             Log.d(LOG, "false2");
+                            isRight = false;
                             reDraw = true;
                             tvAnswer.setTextColor(Color.parseColor("#F44336"));
                             handler.postDelayed(new Runnable() {
@@ -223,7 +228,7 @@ public class MainActivity extends Activity {
                                 public void run() {
                                     defBtnAnswer();
                                 }
-                            }, 1000);
+                            }, 200);
                         }
                     }
                 }
@@ -294,6 +299,10 @@ public class MainActivity extends Activity {
     }
 
     void defBtnAnswer() {
+        if(!isRight)
+            tvPrevious.setText(String.valueOf(firstInt)+ " " + tvOperation.getText() + " " + secondInt + " = " + rightAnswer);
+        else tvPrevious.setText("");
+        isRight = true;
         reDraw = false;
         answer = new Stack<>();
         answerInput = new String();
