@@ -21,11 +21,10 @@
             android:layout_gravity="center">
 
             <ImageButton
-                android:layout_marginLeft="8dp"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:id="@+id/imageButton"
-                android:background="@drawable/rnd_br_prev"
+                android:background="@drawable/icon"
                 android:layout_gravity="center_vertical" />
 
             <LinearLayout
@@ -33,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="42dp">
+                android:layout_marginRight="34dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -51,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="previous"
-                        android:textSize="24dp"
+                        android:textSize="28dp"
                         android:id="@+id/previous_tv" />
 
                     <LinearLayout
