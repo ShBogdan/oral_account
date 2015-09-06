@@ -2,9 +2,9 @@ package com.bogdan.android.oral_account;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -38,7 +38,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if(getDisResolution()>480)
+            setContentView(R.layout.activity_main);
+        else
+            setContentView(R.layout.activity_main_small);
 
         answer = new Stack<>();
         answerInput = new String();
@@ -380,11 +383,16 @@ public class MainActivity extends Activity {
         tvOperation.setTextColor(Color.BLACK);
     }
 
-    void getDisResolution() {
-        Display display = this.getWindowManager().getDefaultDisplay();
-        DisplayMetrics metricsB = new DisplayMetrics();
-        display.getMetrics(metricsB);
-        widthPixelsD = metricsB.widthPixels;
+    int getDisResolution() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        Log.d(LOG, width +" resolution");
+        return width;
+
     }
 
     void btnTextColor() {

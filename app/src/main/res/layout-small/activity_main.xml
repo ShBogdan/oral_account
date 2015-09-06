@@ -82,8 +82,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             >
 
             <Button
@@ -137,7 +136,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             >
 
             <Button
@@ -266,8 +265,8 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+
             >
 
             <Button
@@ -316,7 +315,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+
             >
 
             <Button
@@ -365,7 +364,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             >
 
             <Button

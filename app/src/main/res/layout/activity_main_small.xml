@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="previous"
-                        android:textSize="28dp"
+                        android:textSize="20dp"
                         android:id="@+id/previous_tv" />
 
                     <LinearLayout
@@ -82,8 +82,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             >
 
             <Button
@@ -137,7 +136,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             >
 
             <Button
@@ -207,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="0"
-                android:textSize="48dp"
+                android:textSize="30dp"
                 android:textColor="#37474F"
                 android:id="@+id/tvFirstInt" />
 
@@ -217,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=" operation "
-                android:textSize="48dp"
+                android:textSize="30dp"
                 android:textColor="#37474F"
 
                 android:id="@+id/tvOperation" />
@@ -228,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="0"
-                android:textSize="48dp"
+                android:textSize="30dp"
                 android:textColor="#37474F"
                 android:id="@+id/tvSecondInt" />
         </LinearLayout>
@@ -244,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="answer"
-                android:textSize="48dp"
+                android:textSize="30dp"
                 android:textColor="#37474F"
                 android:id="@+id/answer" />
         </LinearLayout>
@@ -266,8 +265,8 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+
             >
 
             <Button
@@ -316,7 +315,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+
             >
 
             <Button
@@ -365,7 +364,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             >
 
             <Button
