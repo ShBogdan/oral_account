@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="244dp"
+            android:layout_height="455dp"
+            android:layout_gravity="center"
+            android:background="@drawable/start_background">
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:gravity="center"
+
+            >
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/btnInfo"
+                android:background="@drawable/button_i"
+                android:onClick="btnInfo" />
+
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:id="@+id/button_workout"
+                android:background="@drawable/button_workout"
+                android:onClick="btnWorkout" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/button_like"
+                android:background="@drawable/button_like"
+                android:onClick="btnLike" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

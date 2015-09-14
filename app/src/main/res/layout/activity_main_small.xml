@@ -23,9 +23,10 @@
             <ImageButton
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:id="@+id/imageButton"
+                android:id="@+id/btnBack"
                 android:background="@drawable/back_icon"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:onClick="btnBack"/>
 
             <LinearLayout
                 android:orientation="vertical"

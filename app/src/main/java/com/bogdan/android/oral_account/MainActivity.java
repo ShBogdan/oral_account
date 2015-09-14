@@ -112,6 +112,10 @@ public class MainActivity extends Activity {
 
     }
 
+    public void btnBack(View view){
+        super.onBackPressed();
+    }
+
     OnClickListener onCLOperation = new OnClickListener() {
         @Override
         public void onClick(View v) {
