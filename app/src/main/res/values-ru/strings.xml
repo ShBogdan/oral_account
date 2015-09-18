@@ -8,11 +8,10 @@
     <string name="dell">←</string>
     <string name="about">About</string>
     <string name="about_text">
-        This application will help you develop basic arithmetic skills and remember the multiplication table. You can use one of the four levels of difficulty for the uniform growth your abilities.
-
+        Приложение поможет вам развить\n
+        элементарные арифметические навыки\n
+        и вспомнить таблицу умножения.\n
+        Используйте один из четырех уровней\n
+        сложности для равномерной прогрессии нагрузки.
     </string>
-
-
-
-
 </resources>
